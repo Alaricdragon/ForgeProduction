@@ -1,0 +1,2 @@
+1. Hopefully fixed a bug with resetting module configs.
+2. Added skins to the blueprint chooser.
