@@ -1,3 +1,5 @@
+V1.1.5:
+fixed crash on startup when ran without crew replacer. sorry about that.
 V1.1.4
 added version checker support. (hopefully)
 updated to the newest starsector version.
