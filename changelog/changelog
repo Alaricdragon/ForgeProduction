@@ -1,5 +1,4 @@
 V1.1.6:
-save compatible with V1.1.6+
 did a temporally fix to the fact this mods hullmods were unable to be put on ships with the 'UNBOARDABLE' tags (such as automated ships)
 V1.1.5:
 fixed crash on startup when ran without crew replacer. sorry about that.
