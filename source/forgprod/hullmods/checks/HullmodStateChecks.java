@@ -35,7 +35,7 @@ public class HullmodStateChecks {
 
     // Needs a hacky workaround due to the way Alex codes things.
     public static boolean isModule(ShipAPI ship) {
-        return ship.getVariant().getHints().contains(ShipHullSpecAPI.ShipTypeHints.UNBOARDABLE) ||
+        return /*ship.getVariant().getHints().contains(ShipHullSpecAPI.ShipTypeHints.UNBOARDABLE) ||*/
                ship.getVariant().getHints().contains(ShipHullSpecAPI.ShipTypeHints.UNDER_PARENT) ||
                ship.isStationModule() || (ship.getParentStation() != null);
     }
