@@ -113,17 +113,33 @@ public class HullPartsProductionLogic extends ProductionLogic {
     }
 
     public int getActiveSalvageRigsNumber() {
+        //return 99999;
         CampaignFleetAPI playerFleet = Global.getSector().getPlayerFleet();
         List<FleetMemberAPI> membersList = playerFleet.getFleetData().getMembersListCopy();
         int count = 0;
         for (FleetMemberAPI member : membersList) {
-            if (!member.getHullSpec().getBaseHullId().equals("crig")) {
+            if (!member.getVariant().hasHullMod("repair_gantry")){//!member.getHullSpec().getBaseHullId().equals("crig")) {
                 continue;
             }
             boolean mothballed = member.getRepairTracker().isMothballed();
             boolean hasMinCR = member.getRepairTracker().getCR() >= 0.2f;
-            if (!mothballed || hasMinCR) {
-                count += 1;
+            if (!mothballed && hasMinCR) {
+                switch (member.getHullSpec().getHullSize()){
+                    case CAPITAL_SHIP:
+                        count += 8;
+                        break;
+                    case CRUISER:
+                        count += 4;
+                        break;
+                    case DESTROYER:
+                        count += 2;
+                        break;
+                    case FRIGATE:
+                    case FIGHTER:
+                    case DEFAULT:
+                        count += 1;
+                        break;
+                }
             }
         }
         return count;
