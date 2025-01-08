@@ -1,3 +1,6 @@
+V1.1.7:
+save compatible with V1.1.4+
+did a temporally fix to the fact that to forge ships you required that one salvage ship. now any ship with a Salvage Gantry will do.
 V1.1.6:
 did a temporally fix to the fact this mods hullmods were unable to be put on ships with the 'UNBOARDABLE' tags (such as automated ships)
 V1.1.5:
