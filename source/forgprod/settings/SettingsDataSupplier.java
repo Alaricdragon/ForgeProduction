@@ -85,6 +85,7 @@ public class SettingsDataSupplier {
             SettingsHolder.BASE_MACHINERY_USE_HULL_PARTS = settings.getInt("base_machinery_use_hull_parts");
 
             SettingsHolder.HULL_COST_MULTIPLIER = Float.parseFloat(settings.getString("hull_cost_multiplier"));
+            SettingsHolder.REQUIRE_SALVAGE_RIGS = settings.getBoolean("hull_builder_requires_rigs");
 
             // Machinery Breakdown values.
             SettingsHolder.BASE_BREAKDOWN_CHANCE = Float.parseFloat(settings.getString("machinery_breakdown_chance"));

@@ -1,11 +1,14 @@
+V1.1.8:
+    updated to starsector 0.98
+    added a settings to the forge_production_Settings.ini file called 'hull_builder_requires_rigs'. set this to false to forge ships without salvage rigs
 V1.1.7:
-save compatible with V1.1.4+
-did a temporally fix to the fact that to forge ships you required that one salvage ship. now any ship with a Salvage Gantry will do.
+    save compatible with V1.1.4+
+    did a temporally fix to the fact that to forge ships you required that one salvage ship. now any ship with a Salvage Gantry will do.
 V1.1.6:
-did a temporally fix to the fact this mods hullmods were unable to be put on ships with the 'UNBOARDABLE' tags (such as automated ships)
+    did a temporally fix to the fact this mods hullmods were unable to be put on ships with the 'UNBOARDABLE' tags (such as automated ships)
 V1.1.5:
-fixed crash on startup when ran without crew replacer. sorry about that.
+    fixed crash on startup when ran without crew replacer. sorry about that.
 V1.1.4
-added version checker support. (hopefully)
-updated to the newest starsector version.
-added some crew replacer stuff. but don't worry, you can still play this without crew replacer.
+    added version checker support. (hopefully)
+    updated to the newest starsector version.
+    added some crew replacer stuff. but don't worry, you can still play this without crew replacer.

@@ -113,6 +113,7 @@ public class HullPartsProductionLogic extends ProductionLogic {
     }
 
     public int getActiveSalvageRigsNumber() {
+        if (!SettingsHolder.REQUIRE_SALVAGE_RIGS) return 2147483647;
         //return 99999;
         CampaignFleetAPI playerFleet = Global.getSector().getPlayerFleet();
         List<FleetMemberAPI> membersList = playerFleet.getFleetData().getMembersListCopy();

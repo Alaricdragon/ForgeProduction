@@ -73,7 +73,7 @@ public class SettingsHolder {
         public static int BASE_MACHINERY_USE_MACHINERY = 14;
 
         // Base Hull Parts production values.
-
+        public static boolean REQUIRE_SALVAGE_RIGS = false;
         public static boolean ENABLE_HULL_PRODUCTION_LIMITATIONS = true;
         public static int BASE_METAL_INPUT_HULL_PARTS = 10;
         public static int BASE_TRANSPLUTONICS_INPUT_HULL_PARTS = 1;

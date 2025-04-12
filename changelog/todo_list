@@ -13,8 +13,14 @@ issues presented in forge production:
     -right now, the forge requires basic salvage ships. and only the vanila one.
         -first, make this a option in the options. so you can fucking disable it!
         -second, make it so it allows for every ship with a salvage module. should be fine right? RIGHT?!?
+    -right now, it desides on the ships layout for you. 2 options here:
+        a: only print basic hulls. no wepons or fighters or hullmods
+        b: add a refit screen were you have access to infinite amounts of all your blueprints. so you can build your own built refits (cost added to the ship cost.)
 
 
 3) the interear of the mod:
     change this into a system that allows for some additional data. for example:
     making this a god dam library. because it has a lot of potential. from there, it should be easy to convert the mod into something that uses that library (that will be installed in this mod.)
+
+4) mod settings:
+    add in mod settings stuff like I did for starlords. would be a lot nicer to use because arg.
