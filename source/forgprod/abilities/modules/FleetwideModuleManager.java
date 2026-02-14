@@ -10,6 +10,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import forgprod.abilities.conversion.support.ProductionConstants;
 import forgprod.abilities.modules.dataholders.ProductionCapacity;
 import forgprod.abilities.modules.dataholders.ProductionModule;
+import forgprod.settings.SettingsHolder;
 
 /**
  * Registry of all modules and production capacities possessed by the fleet.
@@ -49,7 +50,7 @@ public class FleetwideModuleManager {
     }
 
     private void ensureDefaultVariant() {
-        this.designatedVariantId = "picket_Assault";
+        this.designatedVariantId = SettingsHolder.getDefaultVariant();
     }
 
     public Set<ProductionCapacity> getCapacitiesIndex() {
