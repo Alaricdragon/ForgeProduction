@@ -1,7 +1,9 @@
 package forgprod.settings;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -100,6 +102,27 @@ public class SettingsDataSupplier {
             SettingsHolder.CORRUPTED_NANOFORGE_OUTPUT_BONUS = settings.getInt("corrupted_nanoforge_output_bonus");
             SettingsHolder.PRISTINE_NANOFORGE_OUTPUT_BONUS = settings.getInt("pristine_nanoforge_output_bonus");
 
+            JSONArray temp = settings.getJSONArray("allowedTags");
+            SettingsHolder.allowedTags = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.allowedTags.add(temp.getString(a));
+
+            temp = settings.getJSONArray("allowedManufacturers");
+            SettingsHolder.allowedManufacturers = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.allowedManufacturers.add(temp.getString(a));
+
+            temp = settings.getJSONArray("forcedVariants");
+            SettingsHolder.forcedVariants = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.forcedVariants.add(temp.getString(a));
+
+            temp = settings.getJSONArray("bannedHullmods");
+            SettingsHolder.bannedHullmods = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.bannedHullmods.add(temp.getString(a));
+
+            SettingsHolder.allowedFrigate = settings.getBoolean("allowedFrigate");
+            SettingsHolder.allowedDestroyer = settings.getBoolean("allowedDestroyer");
+            SettingsHolder.allowedCruiser = settings.getBoolean("allowedCruiser");
+            SettingsHolder.allowedCapital = settings.getBoolean("allowedCapital");
+            SettingsHolder.allowForcedVariants = settings.getBoolean("allowForcedVariants");
     }
 
 }

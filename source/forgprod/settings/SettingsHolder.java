@@ -1,5 +1,7 @@
 package forgprod.settings;
 
+import java.util.ArrayList;
+
 /**
  * Convenience class for holding setting values. Values are overwritten by DataSupplier at game load.
  * @author Ontheheavens
@@ -96,4 +98,19 @@ public class SettingsHolder {
         public static int PRISTINE_NANOFORGE_OUTPUT_BONUS = 2;
         public static float CORRUPTED_NANOFORGE_BREAKDOWN_DECREASE = 0.2f;
         public static float PRISTINE_NANOFORGE_BREAKDOWN_DECREASE = 0.5f;
+
+        public static ArrayList<String> allowedTags = new ArrayList<>();
+        public static ArrayList<String> allowedManufacturers = new ArrayList<>();
+        public static ArrayList<String> bannedHullmods = new ArrayList<>();
+        public static ArrayList<String> forcedVariants = new ArrayList<>();
+        public static boolean allowForcedVariants = true;
+        public static boolean allowedFrigate = true;
+        public static boolean allowedDestroyer = false;
+        public static boolean allowedCruiser = false;
+        public static boolean allowedCapital = false;
+
+        public static String getDefaultVariant() {
+                if (SettingsHolder.forcedVariants.isEmpty()) return "picket_Assault";
+                else return SettingsHolder.forcedVariants.get(0);
+        }
 }

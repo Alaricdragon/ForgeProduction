@@ -1,3 +1,25 @@
+V1.1.9:
+save compatible with V1.1.4+
+added some settings to the forge_production_settings.ini:
+    bannedHullmods
+    allowedTags
+    allowedManufacturers
+    allowedFrigate
+    allowedDestroyer
+    allowedCruiser
+    allowedCapital
+    allowForcedVariants
+    forcedVariants
+balance changes:
+    changed the default settings you are no longer forced to go slow by default. also you can use substance burn and emergency burn now. this is in the settings if you dislike this change.
+    increased the senser profile debuff from 100 -> 300 (again, you can chance this in the settings).
+    hull production no longer requires salvage rigs (this is a temp fix, I will be changing this back soon, but fixed.)
+explanation:
+    I have been messing with the files for a while, just for personal use, when I thought to myself 'what are you doing? you can code??? just make it a setting'.
+    so now you can set what ships you are allowed to make directly from the forge_production_settings.ini file. as apposed to allowing 'restricted' and 'none phased, low tech frigates'
+    I have a lot more work to do on the settings here, before adding in a mod settings tab. a bunch of stuff really. but I don't have time -for now-.
+    I will have a time slot open soon, and this is one of the projects I am going to be putting some real effort into making better. so please be patient.
+    also the balance changes are based of something suggested on the forms. But I cant put it all into effect -yet-. sorry.
 V1.1.8:
     updated to starsector 0.98
     added a settings to the forge_production_Settings.ini file called 'hull_builder_requires_rigs'. set this to false to forge ships without salvage rigs

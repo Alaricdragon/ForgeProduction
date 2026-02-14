@@ -8,7 +8,6 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CustomUIPanelPlugin;
 import com.fs.starfarer.api.combat.ShieldAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
@@ -493,7 +492,9 @@ public class HullBlueprintSection {
         for (String blueprintId : allKnown) {
             ShipHullSpecAPI spec = Global.getSettings().getHullSpec(blueprintId);
             if (SettingsHolder.ENABLE_HULL_PRODUCTION_LIMITATIONS) {
-                if (!isEligibleHull(spec) || !isEligibleTech(spec)) {
+                if (!isEligibleHullSize(spec)) continue;
+                if (!isEligibleHullmods(spec)) continue;
+                if (!isEligibleTech(spec) && !isEligibleTags(spec)) {//one or the other must be true...
                     continue;
                 }
             }
@@ -509,9 +510,10 @@ public class HullBlueprintSection {
                 resultVariants.add(targetVariant);
             }
         }
-        resultVariants.add(Global.getSettings().getVariant("picket_Assault"));
-        resultVariants.add(Global.getSettings().getVariant("warden_Defense"));
-        resultVariants.add(Global.getSettings().getVariant("sentry_FS"));
+        if (SettingsHolder.allowForcedVariants){
+            for (String a : SettingsHolder.forcedVariants) resultVariants.add(Global.getSettings().getVariant(a));
+        }
+        if (resultVariants.isEmpty()) resultVariants.add(Global.getSettings().getVariant(SettingsHolder.getDefaultVariant()));
         return resultVariants;
     }
 
@@ -530,19 +532,27 @@ public class HullBlueprintSection {
     }
 
     private static List<String> getUnsupportedHullmodsIds() {
+        //todo: splice out the relevent hullmods here.
         List<String> unsupportedHullmods = new ArrayList<>();
-        unsupportedHullmods.add("phasefield");
-        unsupportedHullmods.add("fluxshunt");
-        unsupportedHullmods.add("delicate");
-        unsupportedHullmods.add("high_maintenance");
-        unsupportedHullmods.add("drive_field_stabilizer");
+        for (String a : SettingsHolder.bannedHullmods) unsupportedHullmods.add(a);
         return unsupportedHullmods;
     }
 
-    private static boolean isEligibleHull(ShipHullSpecAPI spec) {
-        if (spec.getHullSize() != ShipAPI.HullSize.FRIGATE) {
-            return false;
+    private static boolean isEligibleHullSize(ShipHullSpecAPI spec) {
+        switch (spec.getHullSize()){
+            case FRIGATE:
+                return SettingsHolder.allowedFrigate;
+            case DESTROYER:
+                return SettingsHolder.allowedDestroyer;
+            case CRUISER:
+                return SettingsHolder.allowedCruiser;
+            case CAPITAL_SHIP:
+                return SettingsHolder.allowedCapital;
+            default:
+                return false;
         }
+    }
+    private static boolean isEligibleHullmods(ShipHullSpecAPI spec){
         List<String> unsupportedHullmods = getUnsupportedHullmodsIds();
         for (String hullmod : unsupportedHullmods) {
             if (spec.isBuiltInMod(hullmod)) {
@@ -553,15 +563,15 @@ public class HullBlueprintSection {
     }
 
     private static boolean isEligibleTech(ShipHullSpecAPI spec) {
-        Set<String> eligibleTech = new HashSet<>();
-        eligibleTech.add("Explorarium");
-        eligibleTech.add("Low Tech");
-        for (String tech : eligibleTech) {
+        for (String tech : SettingsHolder.allowedManufacturers) {
             if (spec.getManufacturer().equals(tech)) {
                 return true;
             }
         }
         return false;
     }
-
+    private static boolean isEligibleTags(ShipHullSpecAPI spec){
+        for (String tag : SettingsHolder.allowedTags) if (spec.hasTag(tag)) return true;
+        return false;
+    }
 }

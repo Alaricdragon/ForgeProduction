@@ -24,3 +24,4 @@ issues presented in forge production:
 
 4) mod settings:
     add in mod settings stuff like I did for starlords. would be a lot nicer to use because arg.
+    there is a 'hull cost' modification system in play. no clue were it is stored but it exists (I forgot to mark it). add it to the settings.
