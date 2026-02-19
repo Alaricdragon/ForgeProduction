@@ -155,6 +155,8 @@ public class FleetwideModuleManager {
     }
 
     private boolean hasInstalledHullmod(FleetMemberAPI member) {
+        //todo: this returns 'true' if I have a giving hullmod.
+        //usefull, but not valid here.
         return member.getVariant().hasHullMod(moduleIndex.get(member).getHullmodId());
     }
 

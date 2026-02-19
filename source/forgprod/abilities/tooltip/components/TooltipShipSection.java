@@ -55,6 +55,13 @@ public class TooltipShipSection {
     private static List<FleetMemberAPI> getShipsWithModulesSorted(CampaignFleetAPI fleet) {
         List<FleetMemberAPI> membersWithModules = new LinkedList<>();
         List<FleetMemberAPI> inactiveMembers = new LinkedList<>();
+        //todo: um.....
+        //      this is getting memebers with modules.
+        //      its also getting members that modules dont have 'active capacitys'. (disabled?)
+        //      but its adding all of them to a list. do I need more then one member in the list per item?
+        //      like... is this a case were I want one of each member, or more then one of each member?
+        //      we are only storing the ships here, so I think this items -output- is really important.
+        //  todo: check this crazy functions output and see whats what.
         Map<FleetMemberAPI, ProductionModule> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
         List<FleetMemberAPI> membersList = fleet.getFleetData().getMembersListCopy();
         for (FleetMemberAPI member : membersList) {
@@ -75,6 +82,9 @@ public class TooltipShipSection {
         Color nameColor = Misc.getBasePlayerColor();
         String shipName = tooltip.shortenString(member.getShipName(), 175);
         String shipClass = member.getHullSpec().getHullNameWithDashClass();
+        //todo: is getting the module of a single fleet member, and adding it.
+        //      I should make this class just handle each 'type' of module that might be present one at a time.
+        //      just create a sub function for this, and it will work? (inputted tooltip, fleetmemeber, and ProdductionModule)
         ProductionModule module = FleetwideModuleManager.getInstance().getModuleIndex().get(member);
         boolean hasSecondCapacity = (module.getModuleCapacities().size() > 1);
         ProductionCapacity firstCapacityInstance = module.getModuleCapacities().get(0);

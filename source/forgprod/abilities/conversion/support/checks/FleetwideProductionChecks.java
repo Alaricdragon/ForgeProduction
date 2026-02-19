@@ -119,6 +119,8 @@ public class FleetwideProductionChecks {
         if (moduleIndex.isEmpty()) {
             return false;
         }
+        //todo: this is, in effect, a way to update if a fleetmember still has a givin modal.
+        //      can easly be replaced by getting the value and making sure the fleet contains the member?
         for (FleetMemberAPI member : fleet.getFleetData().getMembersListCopy()) {
             if (moduleIndex.get(member) != null) {
                 return true;

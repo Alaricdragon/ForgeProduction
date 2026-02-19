@@ -1,3 +1,23 @@
+V0.1.10:
+
+changed forge_production_settings.ini names:
+    hull_production_
+    bannedHullmods        -> hull_production_allowedTags
+    allowedTags:          -> hull_production_allowedTags
+    allowedManufacturers  -> hull_production_allowedManufacturers
+    allowedFrigate        -> hull_production_allowedFrigate
+    allowedDestroyer      -> hull_production_allowedDestroyer
+    allowedCruiser        -> hull_production_allowedCruiser
+    allowedCapital        -> hull_production_allowedCapital
+    allowForcedVariants   -> hull_production_allowForcedVariants
+    forcedVariants        -> hull_production_forcedVariants
+
+added new settings:
+    hullmod_allowedFrigate
+    hullmod_allowedDestroyer
+    hullmod_allowedCruiser
+    hullmod_allowedCapital
+    hullmod_allowMultipleForgeMods
 V1.1.9:
 save compatible with V1.1.4+
 added some settings to the forge_production_settings.ini:

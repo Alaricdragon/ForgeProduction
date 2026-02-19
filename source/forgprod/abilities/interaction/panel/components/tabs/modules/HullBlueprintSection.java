@@ -510,8 +510,8 @@ public class HullBlueprintSection {
                 resultVariants.add(targetVariant);
             }
         }
-        if (SettingsHolder.allowForcedVariants){
-            for (String a : SettingsHolder.forcedVariants) resultVariants.add(Global.getSettings().getVariant(a));
+        if (SettingsHolder.hull_prod_allowForcedVariants){
+            for (String a : SettingsHolder.hull_prod_forcedVariants) resultVariants.add(Global.getSettings().getVariant(a));
         }
         if (resultVariants.isEmpty()) resultVariants.add(Global.getSettings().getVariant(SettingsHolder.getDefaultVariant()));
         return resultVariants;
@@ -534,20 +534,20 @@ public class HullBlueprintSection {
     private static List<String> getUnsupportedHullmodsIds() {
         //todo: splice out the relevent hullmods here.
         List<String> unsupportedHullmods = new ArrayList<>();
-        for (String a : SettingsHolder.bannedHullmods) unsupportedHullmods.add(a);
+        for (String a : SettingsHolder.hull_prod_bannedHullmods) unsupportedHullmods.add(a);
         return unsupportedHullmods;
     }
 
     private static boolean isEligibleHullSize(ShipHullSpecAPI spec) {
         switch (spec.getHullSize()){
             case FRIGATE:
-                return SettingsHolder.allowedFrigate;
+                return SettingsHolder.hull_prod_allowedFrigate;
             case DESTROYER:
-                return SettingsHolder.allowedDestroyer;
+                return SettingsHolder.hull_prod_allowedDestroyer;
             case CRUISER:
-                return SettingsHolder.allowedCruiser;
+                return SettingsHolder.hull_prod_allowedCruiser;
             case CAPITAL_SHIP:
-                return SettingsHolder.allowedCapital;
+                return SettingsHolder.hull_prod_allowedCapital;
             default:
                 return false;
         }
@@ -563,7 +563,7 @@ public class HullBlueprintSection {
     }
 
     private static boolean isEligibleTech(ShipHullSpecAPI spec) {
-        for (String tech : SettingsHolder.allowedManufacturers) {
+        for (String tech : SettingsHolder.hull_prod_allowedManufacturers) {
             if (spec.getManufacturer().equals(tech)) {
                 return true;
             }
@@ -571,7 +571,7 @@ public class HullBlueprintSection {
         return false;
     }
     private static boolean isEligibleTags(ShipHullSpecAPI spec){
-        for (String tag : SettingsHolder.allowedTags) if (spec.hasTag(tag)) return true;
+        for (String tag : SettingsHolder.hull_prod_allowedTags) if (spec.hasTag(tag)) return true;
         return false;
     }
 }

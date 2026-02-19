@@ -21,6 +21,8 @@ import forgprod.hullmods.tooltip.TooltipCapacitySection;
 import forgprod.hullmods.tooltip.TooltipModuleSection;
 import forgprod.settings.SettingsHolder;
 
+import java.util.ArrayList;
+
 import static forgprod.abilities.conversion.support.ProductionConstants.SHIPSIZE_CAPACITY;
 import static forgprod.hullmods.checks.HullmodStateChecks.*;
 
@@ -115,7 +117,14 @@ public class BaseProductionHullmod extends BaseHullMod {
     @Override
     public String getUnapplicableReason(ShipAPI ship) {
         if (ship != null && !isValidHullsize(ship.getHullSpec())) {
-            return "Can only be installed on cruiser and capital hulls";
+            ArrayList<String> sizes = SettingsHolder.getAllowedHullmodNames();
+            String a = "";
+            for (int b = 0; b < sizes.size(); b++){
+                a+=sizes.get(b);
+                if (b != 0 && b == sizes.size() - 2) a+=", and ";
+                else if (b < sizes.size()-2) a+=", ";
+            }
+            return "Can only be installed on "+a+" hulls";
         }
         if (ship != null && isModule(ship)) {
             return "Can not be installed on modules";

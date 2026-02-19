@@ -105,6 +105,10 @@ public class ModulesTab {
 
     public static List<ProductionModule> getModulesForList(CampaignFleetAPI fleet, boolean applyTags) {
         List<ProductionModule> modules = new LinkedList<>();
+        //todo: this is a fucking mess.
+        //      so in short: I -think- whats going on here is I am getting a list of all valid production modules.
+        //      in theory, all I need to do is run a full check for all production modules in list, then add them all to add.
+        //      it should just work. I hope.
         Map<FleetMemberAPI, ProductionModule> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
         List<FleetMemberAPI> membersList = fleet.getFleetData().getMembersListCopy();
         for (FleetMemberAPI member : membersList) {

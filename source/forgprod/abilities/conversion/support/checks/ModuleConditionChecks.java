@@ -19,6 +19,8 @@ public class ModuleConditionChecks {
     }
 
     public static boolean hasActiveModule(FleetMemberAPI member) {
+        //todo: this looks at a modole, and again sees if a fleet member has a model.
+        //      issue: I return 'hasActiveCapacityes' here. do I need to return this for each item?
         ProductionModule module = FleetwideModuleManager.getInstance().getModuleIndex().get(member);
         if (module != null) {
             return module.hasActiveCapacities();
