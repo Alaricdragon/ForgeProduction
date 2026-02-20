@@ -1,3 +1,9 @@
+V0.1.11:
+save compatible with V1.1.4+
+fixed:
+    missing save combatability
+added new settings:
+    max_cr_decrease
 V0.1.10:
 save compatible with V1.1.4+
 changed forge_production_settings.ini names:

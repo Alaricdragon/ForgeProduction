@@ -37,7 +37,16 @@ public class FleetwideModuleManager {
         this.accumulatedHullParts = 0f;
         this.ensureDefaultVariant();
     }
-
+    public static void replaceThing(){
+        managerInstance = (FleetwideModuleManager) Global.getSector().getPersistentData().get("forgprod_index");
+        if (managerInstance != null){
+            managerInstance = null;
+        }
+        if (managerInstance == null) {
+            managerInstance = new FleetwideModuleManager();
+            Global.getSector().getPersistentData().put("forgprod_index", managerInstance);
+        }
+    }
     public static FleetwideModuleManager getInstance() {
         managerInstance = (FleetwideModuleManager) Global.getSector().getPersistentData().get("forgprod_index");
         if (managerInstance == null) {
