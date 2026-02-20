@@ -1,5 +1,7 @@
 package forgprod.abilities.conversion.logic;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -63,8 +65,8 @@ public class BreakdownLogic {
 
     private void calculateFatalAccidents(CampaignFleetAPI fleet) {
         float totalCrewEmployed = 0;
-        Map<FleetMemberAPI, ProductionModule> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
-        for (ProductionModule module : moduleIndex.values()) {
+        HashMap<FleetMemberAPI, ArrayList<ProductionModule>> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
+        for (ArrayList<ProductionModule> a : moduleIndex.values()) for (ProductionModule module : a){
             if (module.hadProducedToday()) {
                 totalCrewEmployed += module.getParentFleetMember().getCrewComposition().getCrew();
             }

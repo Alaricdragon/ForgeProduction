@@ -6,6 +6,8 @@ import forgprod.abilities.modules.FleetwideModuleManager;
 import forgprod.abilities.modules.dataholders.ProductionModule;
 import forgprod.settings.SettingsHolder;
 
+import java.util.ArrayList;
+
 public class ModuleConditionChecks {
 
     public static boolean isOperational(FleetMemberAPI member) {
@@ -19,12 +21,16 @@ public class ModuleConditionChecks {
     }
 
     public static boolean hasActiveModule(FleetMemberAPI member) {
-        //todo: this looks at a modole, and again sees if a fleet member has a model.
-        //      issue: I return 'hasActiveCapacityes' here. do I need to return this for each item?
-        ProductionModule module = FleetwideModuleManager.getInstance().getModuleIndex().get(member);
-        if (module != null) {
-            return module.hasActiveCapacities();
-        } else return false;
+        //todo: this only has one use.
+        //      looking at the use, there seems to be a macanic were the trail increases in size per ship that is forging.
+        //      I -should- beable to change this function to handle that. I just need to itterate over all the values.
+        //      although, it is also fine to just... keep this as it is?
+        ArrayList<ProductionModule> module = FleetwideModuleManager.getInstance().getModuleIndex().get(member);
+        if (module == null) return false;
+        for (ProductionModule a : module){
+            if (a != null && a.hasActiveCapacities()) return true;
+        }
+        return false;
     }
 
 }

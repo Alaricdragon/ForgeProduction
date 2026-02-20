@@ -1,8 +1,7 @@
 V0.1.10:
-
+save compatible with V1.1.4+
 changed forge_production_settings.ini names:
-    hull_production_
-    bannedHullmods        -> hull_production_allowedTags
+    bannedHullmods        -> hull_bannedHullmods
     allowedTags:          -> hull_production_allowedTags
     allowedManufacturers  -> hull_production_allowedManufacturers
     allowedFrigate        -> hull_production_allowedFrigate
@@ -11,13 +10,16 @@ changed forge_production_settings.ini names:
     allowedCapital        -> hull_production_allowedCapital
     allowForcedVariants   -> hull_production_allowForcedVariants
     forcedVariants        -> hull_production_forcedVariants
-
 added new settings:
     hullmod_allowedFrigate
     hullmod_allowedDestroyer
     hullmod_allowedCruiser
     hullmod_allowedCapital
     hullmod_allowMultipleForgeMods
+fixes:
+    fixed a bug that prevented the forge production ability from being activated until you clicked on it.
+balance changes:
+    decreased the senser profile debuff from 300 -> 200. I didn't realize that was a percentage increase
 V1.1.9:
 save compatible with V1.1.4+
 added some settings to the forge_production_settings.ini:

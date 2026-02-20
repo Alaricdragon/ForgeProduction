@@ -152,9 +152,15 @@ public class TooltipModuleSection {
                 }
                 break;
             case ProductionConstants.HEAVY_INDUSTRY_MODULE:
-                //todo: so this one... is getting the module, but only the heavy industry one.
-                //      I think I should create a 'get fleet modules' function...
-                ProductionModule module = FleetwideModuleManager.getInstance().getModuleIndex().get(ship.getFleetMember());
+                // this was changed to simply get the module of a given ship, but only return the one for heavy industry.
+                ArrayList<ProductionModule> temp = FleetwideModuleManager.getInstance().getModuleIndex().get(ship.getFleetMember());
+                ProductionModule module = null;
+                for (ProductionModule a : temp){
+                    if (a.getHullmodId().equals(ProductionConstants.HEAVY_INDUSTRY_MODULE)){
+                        module = a;
+                        break;
+                    }
+                }
                 boolean moduleExists = (module != null);
                 if (moduleExists && module.getCapacitiesMode() == ProductionModule.ProductionMode.PRIMARY) {
                     if (heavyIndustryBonus > 0f) {

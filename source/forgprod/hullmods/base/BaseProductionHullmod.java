@@ -31,17 +31,18 @@ import static forgprod.hullmods.checks.HullmodStateChecks.*;
  * @since 05.12.2022
  */
 
-public class BaseProductionHullmod extends BaseHullMod {
+public abstract class BaseProductionHullmod extends BaseHullMod {
 
     @Override
     public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
         int shipCapacity = SHIPSIZE_CAPACITY.get(hullSize);
         int crewIncrease = SettingsHolder.CREW_REQ_PER_CAPACITY * shipCapacity;
         int supplyIncrease = SettingsHolder.SUPPLY_REQ_PER_CAPACITY * shipCapacity;
-        stats.getMaxCombatReadiness().modifyFlat("Production logistics", -SettingsHolder.MAXIMUM_CR_DECREASE);
-        stats.getSuppliesPerMonth().modifyFlat("Production logistics", supplyIncrease);
-        stats.getMinCrewMod().modifyFlat("Production logistics", crewIncrease);
+        stats.getMaxCombatReadiness().modifyFlat(modID(), -SettingsHolder.MAXIMUM_CR_DECREASE);
+        stats.getSuppliesPerMonth().modifyFlat(modID(), supplyIncrease);
+        stats.getMinCrewMod().modifyFlat(modID(), crewIncrease);
     }
+    public abstract String modID();
 
     public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {
         int crewPerCapacity = SettingsHolder.CREW_REQ_PER_CAPACITY;
@@ -78,13 +79,22 @@ public class BaseProductionHullmod extends BaseHullMod {
         tooltip.addSectionHeading("Production capacities", Alignment.MID, 8f);
         FleetMemberAPI member = ship.getFleetMember();
         FleetwideModuleManager manager = FleetwideModuleManager.getInstance();
-        ProductionCapacity primaryCapacity = manager.getSpecificCapacity(member, 0);
+        ProductionCapacity primaryCapacity = getCapacity(member,0);//manager.getSpecificCapacity(member, 0);
         boolean installed = ship.getVariant().hasHullMod(this.spec.getId());
         TooltipCapacitySection.addCapacityPanel(tooltip, ship, primaryType, primaryCapacity, installed);
         if (hasSecondary && secondaryType != null) {
-            ProductionCapacity secondaryCapacity = manager.getSpecificCapacity(member, 1);
+            ProductionCapacity secondaryCapacity = getCapacity(member,1);//manager.getSpecificCapacity(member, 1);
             TooltipCapacitySection.addCapacityPanel(tooltip, ship, secondaryType, secondaryCapacity, installed);
         }
+    }
+    public ProductionCapacity getCapacity(FleetMemberAPI member, int index) {
+        if (member == null) { return null; }
+        ProductionModule module = getSpecificModule(member);
+        if (module == null) { return null; }
+        if ((index + 1) >  module.getModuleCapacities().size()) {
+            return null;
+        }
+        return module.getModuleCapacities().get(index);
     }
 
     protected boolean addAvailableCapacities(TooltipMakerAPI tooltip, ShipAPI ship) {
@@ -93,7 +103,7 @@ public class BaseProductionHullmod extends BaseHullMod {
             return false;
         }
         FleetwideModuleManager manager = FleetwideModuleManager.getInstance();
-        ProductionModule module = manager.getSpecificModule(ship.getFleetMember());
+        ProductionModule module = getSpecificModule(ship.getFleetMember());//manager.getSpecificModule(ship.getFleetMember());
         if (module == null) {
             return false;
         } else {
@@ -108,6 +118,7 @@ public class BaseProductionHullmod extends BaseHullMod {
             return true;
         }
     }
+    public abstract ProductionModule getSpecificModule(FleetMemberAPI member);
 
     @Override
     public boolean isApplicableToShip(ShipAPI ship) {

@@ -1,9 +1,6 @@
 package forgprod.abilities.interaction.panel.components.tabs;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -109,15 +106,18 @@ public class ModulesTab {
         //      so in short: I -think- whats going on here is I am getting a list of all valid production modules.
         //      in theory, all I need to do is run a full check for all production modules in list, then add them all to add.
         //      it should just work. I hope.
-        Map<FleetMemberAPI, ProductionModule> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
+        HashMap<FleetMemberAPI, ArrayList<ProductionModule>> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
         List<FleetMemberAPI> membersList = fleet.getFleetData().getMembersListCopy();
         for (FleetMemberAPI member : membersList) {
-            ProductionModule checkedModule = moduleIndex.get(member);
-            if (checkedModule != null) {
-                if (applyTags && !isDisplayTagEnabled(checkedModule)) {
-                    continue;
+            ArrayList<ProductionModule> a = moduleIndex.get(member);
+            if (a == null) continue;
+            for (ProductionModule checkedModule : a) {
+                if (checkedModule != null) {
+                    if (applyTags && !isDisplayTagEnabled(checkedModule)) {
+                        continue;
+                    }
+                    modules.add(checkedModule);
                 }
-                modules.add(checkedModule);
             }
         }
         return modules;

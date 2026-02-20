@@ -1,11 +1,10 @@
 package forgprod.abilities.conversion.logic.base;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import forgprod.abilities.conversion.logic.*;
 import forgprod.abilities.conversion.support.checks.FleetwideProductionChecks;
 import forgprod.abilities.conversion.support.ProductionType;
@@ -178,8 +177,8 @@ public abstract class ProductionLogic {
 
     protected void setModuleFlags() {
         FleetwideModuleManager managerInstance = FleetwideModuleManager.getInstance();
-        Set<ProductionModule> fleetModules = new HashSet<>(managerInstance.getModuleIndex().values());
-        for (ProductionModule module : fleetModules) {
+        Collection<ArrayList<ProductionModule>> fleetModules = managerInstance.getModuleIndex().values();
+        for (ArrayList<ProductionModule> a : fleetModules) for (ProductionModule module : a){
             if (module.hasSpecificActiveCapacity(productionType)) {
                 module.setProducedToday(true);
             }
