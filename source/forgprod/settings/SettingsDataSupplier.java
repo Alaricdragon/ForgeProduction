@@ -94,7 +94,7 @@ public class SettingsDataSupplier {
             SettingsHolder.BREAKDOWN_SEVERITY = Float.parseFloat(settings.getString("machinery_breakdown_severity"));
 
             SettingsHolder.DAILY_CR_DECREASE = Float.parseFloat(settings.getString("daily_cr_decrease"));
-
+            SettingsHolder.MAXIMUM_CR_DECREASE = Float.parseFloat(settings.getString("max_cr_decrease"));
             // Here: Special Item Settings
 
             SettingsHolder.CATALYTIC_CORE_OUTPUT_BONUS = settings.getInt("catalytic_core_output_bonus");

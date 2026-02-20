@@ -1,5 +1,6 @@
 package forgprod;
 
+import forgprod.abilities.modules.FleetwideModuleManager;
 import forgprod.crewReplacer_Combatability.Forgeprod_CrewReplacerCargo;
 import forgprod.crewReplacer_Combatability.Forgeprod_DefaultCargo;
 import org.json.JSONException;
@@ -27,9 +28,9 @@ public final class ForgprodModPlugin extends BaseModPlugin {
         SettingsDataSupplier.loadSettings(FORGE_SETTINGS);
         crewReplacerCombatability();
     }
-
     @Override
     public void onGameLoad(boolean newGame) {
+        FleetwideModuleManager.replaceThing();
         if (!SettingsHolder.ENABLE_FEATURE_UNLOCK) {
             return;
         }
