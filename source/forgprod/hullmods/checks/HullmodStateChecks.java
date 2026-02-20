@@ -10,6 +10,9 @@ import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 import forgprod.abilities.conversion.support.ProductionConstants;
+import forgprod.settings.SettingsHolder;
+
+import static forgprod.settings.SettingsHolder.*;
 
 /**
  * @author Ontheheavens
@@ -18,6 +21,7 @@ import forgprod.abilities.conversion.support.ProductionConstants;
 public class HullmodStateChecks {
 
     public static boolean hasOtherModules(ShipAPI ship, String module) {
+        if (SettingsHolder.hullmod_allowMulti) return false;
         boolean hasForgeModule = false;
         HashSet<String> modulesToCheck = new HashSet<>(ProductionConstants.ALL_HULLMODS);
         modulesToCheck.remove(module);
@@ -42,8 +46,11 @@ public class HullmodStateChecks {
 
     public static boolean isValidHullsize(ShipHullSpecAPI hullSpec) {
         Set<ShipAPI.HullSize> validSizes = new HashSet<>();
-        validSizes.add(ShipAPI.HullSize.CRUISER);
-        validSizes.add(ShipAPI.HullSize.CAPITAL_SHIP);
+
+        if (hullmod_allowedFrigate) validSizes.add(ShipAPI.HullSize.FRIGATE);
+        if (hullmod_allowedDestroyer) validSizes.add(ShipAPI.HullSize.DESTROYER);
+        if (hullmod_allowedCruiser) validSizes.add(ShipAPI.HullSize.CRUISER);
+        if (hullmod_allowedCapital) validSizes.add(ShipAPI.HullSize.CAPITAL_SHIP);
         for (ShipAPI.HullSize size : validSizes) {
             if (hullSpec.getHullSize().equals(size)) {
                 return true;

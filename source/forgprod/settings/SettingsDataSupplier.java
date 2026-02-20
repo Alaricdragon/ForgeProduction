@@ -50,41 +50,41 @@ public class SettingsDataSupplier {
             SettingsHolder.GRANULARITY = settings.getInt("granularity");
 
             // Metals Production values.
-            SettingsHolder.BASE_ORE_INPUT = settings.getInt("base_ore_input");
-            SettingsHolder.BASE_METAL_OUTPUT = settings.getInt("base_metals_output");
-            SettingsHolder.BASE_MACHINERY_USE_METALS = settings.getInt("base_machinery_use_metals");
+            SettingsHolder.BASE_ORE_INPUT = (float) settings.getDouble("base_ore_input");
+            SettingsHolder.BASE_METAL_OUTPUT = (float) settings.getDouble("base_metals_output");
+            SettingsHolder.BASE_MACHINERY_USE_METALS = (float) settings.getDouble("base_machinery_use_metals");
 
             // Transplutonics Production values.
-            SettingsHolder.BASE_TRANSPLUTONIC_ORE_INPUT = settings.getInt("base_transplutonic_ore_input");
-            SettingsHolder.BASE_TRANSPLUTONICS_OUTPUT = settings.getInt("base_transplutonics_output");
-            SettingsHolder.BASE_MACHINERY_USE_TRANSPLUTONICS = settings.getInt("base_machinery_use_transplutonics");
+            SettingsHolder.BASE_TRANSPLUTONIC_ORE_INPUT = (float) settings.getDouble("base_transplutonic_ore_input");
+            SettingsHolder.BASE_TRANSPLUTONICS_OUTPUT = (float) settings.getDouble("base_transplutonics_output");
+            SettingsHolder.BASE_MACHINERY_USE_TRANSPLUTONICS = (float) settings.getDouble("base_machinery_use_transplutonics");
 
             // Fuel Production values.
-            SettingsHolder.BASE_VOLATILES_INPUT = settings.getInt("base_volatiles_input");
-            SettingsHolder.BASE_FUEL_OUTPUT = settings.getInt("base_fuel_output");
-            SettingsHolder.BASE_MACHINERY_USE_FUEL = settings.getInt("base_machinery_use_fuel");
+            SettingsHolder.BASE_VOLATILES_INPUT = (float) settings.getDouble("base_volatiles_input");
+            SettingsHolder.BASE_FUEL_OUTPUT = (float) settings.getDouble("base_fuel_output");
+            SettingsHolder.BASE_MACHINERY_USE_FUEL = (float) settings.getDouble("base_machinery_use_fuel");
 
             // Supplies Production values.
-            SettingsHolder.BASE_METALS_INPUT_SUPPLIES = settings.getInt("base_metals_input_supplies");
-            SettingsHolder.BASE_TRANSPLUTONICS_INPUT_SUPPLIES = settings.getInt("base_transplutonics_input_supplies");
-            SettingsHolder.BASE_SUPPLIES_OUTPUT = settings.getInt("base_supplies_output");
-            SettingsHolder.BASE_MACHINERY_USE_SUPPLIES = settings.getInt("base_machinery_use_supplies");
+            SettingsHolder.BASE_METALS_INPUT_SUPPLIES = (float) settings.getDouble("base_metals_input_supplies");
+            SettingsHolder.BASE_TRANSPLUTONICS_INPUT_SUPPLIES = (float) settings.getDouble("base_transplutonics_input_supplies");
+            SettingsHolder.BASE_SUPPLIES_OUTPUT = (float) settings.getDouble("base_supplies_output");
+            SettingsHolder.BASE_MACHINERY_USE_SUPPLIES = (float) settings.getDouble("base_machinery_use_supplies");
 
             // Machinery Production values.
-            SettingsHolder.BASE_METAL_INPUT_MACHINERY = settings.getInt("base_metals_input_machinery");
-            SettingsHolder.BASE_TRANSPLUTONICS_INPUT_MACHINERY = settings.getInt("base_transplutonics_input_machinery");
-            SettingsHolder.BASE_MACHINERY_OUTPUT = settings.getInt("base_machinery_output");
-            SettingsHolder.BASE_MACHINERY_USE_MACHINERY = settings.getInt("base_machinery_use_machinery");
+            SettingsHolder.BASE_METAL_INPUT_MACHINERY = (float) settings.getDouble("base_metals_input_machinery");
+            SettingsHolder.BASE_TRANSPLUTONICS_INPUT_MACHINERY = (float) settings.getDouble("base_transplutonics_input_machinery");
+            SettingsHolder.BASE_MACHINERY_OUTPUT = (float) settings.getDouble("base_machinery_output");
+            SettingsHolder.BASE_MACHINERY_USE_MACHINERY = (float) settings.getDouble("base_machinery_use_machinery");
 
             // Hull Parts Production values.
             SettingsHolder.ENABLE_HULL_PRODUCTION_LIMITATIONS = settings.getBoolean("enable_hull_production_limitations");
 
-            SettingsHolder.BASE_METAL_INPUT_HULL_PARTS = settings.getInt("base_metals_input_hull_parts");
-            SettingsHolder.BASE_TRANSPLUTONICS_INPUT_HULL_PARTS= settings.getInt("base_transplutonics_input_hull_parts");
-            SettingsHolder.BASE_SUPPLIES_INPUT_HULL_PARTS = settings.getInt("base_supplies_input_hull_parts");
-            SettingsHolder.BASE_MACHINERY_INPUT_HULL_PARTS = settings.getInt("base_machinery_input_hull_parts");
-            SettingsHolder.BASE_HULL_PARTS_OUTPUT = settings.getInt("base_hull_parts_output");
-            SettingsHolder.BASE_MACHINERY_USE_HULL_PARTS = settings.getInt("base_machinery_use_hull_parts");
+            SettingsHolder.BASE_METAL_INPUT_HULL_PARTS = (float) settings.getDouble("base_metals_input_hull_parts");
+            SettingsHolder.BASE_TRANSPLUTONICS_INPUT_HULL_PARTS= (float) settings.getDouble("base_transplutonics_input_hull_parts");
+            SettingsHolder.BASE_SUPPLIES_INPUT_HULL_PARTS = (float) settings.getDouble("base_supplies_input_hull_parts");
+            SettingsHolder.BASE_MACHINERY_INPUT_HULL_PARTS = (float) settings.getDouble("base_machinery_input_hull_parts");
+            SettingsHolder.BASE_HULL_PARTS_OUTPUT = (float) settings.getDouble("base_hull_parts_output");
+            SettingsHolder.BASE_MACHINERY_USE_HULL_PARTS = (float) settings.getDouble("base_machinery_use_hull_parts");
 
             SettingsHolder.HULL_COST_MULTIPLIER = Float.parseFloat(settings.getString("hull_cost_multiplier"));
             SettingsHolder.REQUIRE_SALVAGE_RIGS = settings.getBoolean("hull_builder_requires_rigs");
@@ -102,27 +102,41 @@ public class SettingsDataSupplier {
             SettingsHolder.CORRUPTED_NANOFORGE_OUTPUT_BONUS = settings.getInt("corrupted_nanoforge_output_bonus");
             SettingsHolder.PRISTINE_NANOFORGE_OUTPUT_BONUS = settings.getInt("pristine_nanoforge_output_bonus");
 
-            JSONArray temp = settings.getJSONArray("allowedTags");
-            SettingsHolder.allowedTags = new ArrayList<>();
-            for (int a = 0; a < temp.length(); a++) SettingsHolder.allowedTags.add(temp.getString(a));
+            JSONArray temp = settings.getJSONArray("hull_production_allowedTags");
+            SettingsHolder.hull_prod_allowedTags = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_allowedTags.add(temp.getString(a));
 
-            temp = settings.getJSONArray("allowedManufacturers");
-            SettingsHolder.allowedManufacturers = new ArrayList<>();
-            for (int a = 0; a < temp.length(); a++) SettingsHolder.allowedManufacturers.add(temp.getString(a));
+            temp = settings.getJSONArray("hull_production_allowedManufacturers");
+            SettingsHolder.hull_prod_allowedManufacturers = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_allowedManufacturers.add(temp.getString(a));
 
-            temp = settings.getJSONArray("forcedVariants");
-            SettingsHolder.forcedVariants = new ArrayList<>();
-            for (int a = 0; a < temp.length(); a++) SettingsHolder.forcedVariants.add(temp.getString(a));
+            temp = settings.getJSONArray("hull_production_forcedVariants");
+            SettingsHolder.hull_prod_forcedVariants = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_forcedVariants.add(temp.getString(a));
 
-            temp = settings.getJSONArray("bannedHullmods");
-            SettingsHolder.bannedHullmods = new ArrayList<>();
-            for (int a = 0; a < temp.length(); a++) SettingsHolder.bannedHullmods.add(temp.getString(a));
+            temp = settings.getJSONArray("hull_production_bannedHullmods");
+            SettingsHolder.hull_prod_bannedHullmods = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_bannedHullmods.add(temp.getString(a));
 
-            SettingsHolder.allowedFrigate = settings.getBoolean("allowedFrigate");
-            SettingsHolder.allowedDestroyer = settings.getBoolean("allowedDestroyer");
-            SettingsHolder.allowedCruiser = settings.getBoolean("allowedCruiser");
-            SettingsHolder.allowedCapital = settings.getBoolean("allowedCapital");
-            SettingsHolder.allowForcedVariants = settings.getBoolean("allowForcedVariants");
+            SettingsHolder.hull_prod_allowedFrigate = settings.getBoolean("hull_production_allowedFrigate");
+            SettingsHolder.hull_prod_allowedDestroyer = settings.getBoolean("hull_production_allowedDestroyer");
+            SettingsHolder.hull_prod_allowedCruiser = settings.getBoolean("hull_production_allowedCruiser");
+            SettingsHolder.hull_prod_allowedCapital = settings.getBoolean("hull_production_allowedCapital");
+            SettingsHolder.hull_prod_allowForcedVariants = settings.getBoolean("hull_production_allowForcedVariants");
+
+
+            /*
+    hullmod_allowedFrigate
+    hullmod_allowedDestroyer
+    hullmod_allowedCruiser
+    hullmod_allowedCapital
+    hullmod_allowMultipleForgeMods
+    */
+            SettingsHolder.hullmod_allowMulti = settings.getBoolean("hullmod_allowMultipleForgeMods");
+            SettingsHolder.hullmod_allowedCapital = settings.getBoolean("hullmod_allowedCapital");
+            SettingsHolder.hullmod_allowedCruiser = settings.getBoolean("hullmod_allowedCruiser");
+            SettingsHolder.hullmod_allowedDestroyer = settings.getBoolean("hullmod_allowedDestroyer");
+            SettingsHolder.hullmod_allowedFrigate = settings.getBoolean("hullmod_allowedFrigate");
     }
 
 }

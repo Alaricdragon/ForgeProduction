@@ -15,6 +15,7 @@ import forgprod.abilities.modules.dataholders.ProductionCapacity;
 import forgprod.abilities.modules.dataholders.ProductionModule;
 import forgprod.crewReplacer_Combatability.Forgeprod_DefaultCargo;
 import forgprod.settings.SettingsHolder;
+import org.apache.log4j.Logger;
 
 import static forgprod.abilities.conversion.support.checks.ItemBonusesChecks.getNanoforgeBreakdownDecrease;
 
@@ -114,25 +115,37 @@ public class FleetwideProductionChecks {
         return getMachineryAvailability(fleet) >= SettingsHolder.MINIMUM_MACHINERY_PERCENT;
     }
 
+    //public static final Logger log = Global.getLogger(FleetwideModuleManager.class);
+    private static int dayTemp = -1;
     public static boolean hasInstalledModules(CampaignFleetAPI fleet) {
-        Map<FleetMemberAPI, ProductionModule> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
+        //this should just work. I simple want to know if I have -any- modules instaled. this is a way I think?
+        if (dayTemp != Global.getSector().getClock().getDay()){
+            dayTemp = Global.getSector().getClock().getDay();
+            FleetwideModuleManager.getInstance().refreshIndexes(fleet);
+        }
+        HashMap<FleetMemberAPI, ArrayList<ProductionModule>> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
         if (moduleIndex.isEmpty()) {
+            //log.info("exiting with 0 size");
             return false;
         }
         for (FleetMemberAPI member : fleet.getFleetData().getMembersListCopy()) {
+            //log.info("ship name: "+member.getShipName());
             if (moduleIndex.get(member) != null) {
+                //log.info("exiting with active item");
                 return true;
             }
         }
+        //log.info("exiting with no active members found...");
         return false;
     }
 
     public static boolean hasActiveModules() {
-        Map<FleetMemberAPI, ProductionModule> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
+        //please note this is fine. this is acking if it has -any- active modules. so it should be fine.
+        HashMap<FleetMemberAPI, ArrayList<ProductionModule>> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
         if (moduleIndex.isEmpty()) {
             return false;
         }
-        for (ProductionModule module : moduleIndex.values()) {
+        for (ArrayList<ProductionModule> a : moduleIndex.values()) for (ProductionModule module : a){
             if (module.hasActiveCapacities()) {
                 return true;
             }

@@ -3,10 +3,8 @@ package forgprod.abilities.effects;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -31,14 +29,18 @@ public class AbilityEffects {
 
     public static void applyCRDecrease() {
         FleetwideModuleManager managerInstance = FleetwideModuleManager.getInstance();
-        Set<ProductionModule> fleetModules = new HashSet<>(managerInstance.getModuleIndex().values());
-        for (ProductionModule module : fleetModules) {
-            if (module == null) {
-                continue;
-            }
-            if (module.hadProducedToday()) {
-                module.getParentFleetMember().getRepairTracker().applyCREvent(-SettingsHolder.DAILY_CR_DECREASE, "Forged goods");
-                module.setProducedToday(false);
+        //just applying decreases from cr upgrades...
+        Collection<ArrayList<ProductionModule>> fleetModules = managerInstance.getModuleIndex().values();
+        for (ArrayList<ProductionModule> a : fleetModules) {
+            if (a == null) continue;
+            for (ProductionModule module : a) {
+                if (module == null) {
+                    continue;
+                }
+                if (module.hadProducedToday()) {
+                    module.getParentFleetMember().getRepairTracker().applyCREvent(-SettingsHolder.DAILY_CR_DECREASE, "Forged goods");
+                    module.setProducedToday(false);
+                }
             }
         }
     }

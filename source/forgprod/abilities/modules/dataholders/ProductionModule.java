@@ -118,8 +118,12 @@ public class ProductionModule {
                 break;
             }
         }
+        //todo: this is fine the way it is.
+        //      the issue lies with the fact this is being ran in some type of infinit loop, causing issues
+        //FleetwideModuleManager.getInstance().addCapacityIfPossible(firstCapacity);
         FleetwideModuleManager.getInstance().getCapacitiesIndex().add(firstCapacity);
         if (secondCapacity != null) {
+            //FleetwideModuleManager.getInstance().addCapacityIfPossible(secondCapacity);
             FleetwideModuleManager.getInstance().getCapacitiesIndex().add(secondCapacity);
         }
     }

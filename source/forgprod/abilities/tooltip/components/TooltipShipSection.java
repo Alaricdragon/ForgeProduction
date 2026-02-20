@@ -1,10 +1,8 @@
 package forgprod.abilities.tooltip.components;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -55,15 +53,30 @@ public class TooltipShipSection {
     private static List<FleetMemberAPI> getShipsWithModulesSorted(CampaignFleetAPI fleet) {
         List<FleetMemberAPI> membersWithModules = new LinkedList<>();
         List<FleetMemberAPI> inactiveMembers = new LinkedList<>();
-        Map<FleetMemberAPI, ProductionModule> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
+        //todo: um.....
+        //      this is getting memebers with modules.
+        //      its also getting members that modules dont have 'active capacitys'. (disabled?)
+        //      but its adding all of them to a list. do I need more then one member in the list per item?
+        //      like... is this a case were I want one of each member, or more then one of each member?
+        //      we are only storing the ships here, so I think this items -output- is really important.
+        //  todo: check this crazy functions output and see whats what.
+        //  todo: I think this is just got getting what ships show up. so in theory, I just need to return true if a giving fleet member has any modules?
+        HashMap<FleetMemberAPI, ArrayList<ProductionModule>> moduleIndex = FleetwideModuleManager.getInstance().getModuleIndex();
         List<FleetMemberAPI> membersList = fleet.getFleetData().getMembersListCopy();
         for (FleetMemberAPI member : membersList) {
             if (moduleIndex.get(member) != null) {
-                if (moduleIndex.get(member).hasActiveCapacities()) {
-                    membersWithModules.add(member);
-                } else {
-                    inactiveMembers.add(member);
+                boolean has = false;
+                for (ProductionModule a : moduleIndex.get(member)) {
+                    if (a.hasActiveCapacities()) {
+                        has = true;
+                        break;
+                    } else {
+                        //inactiveMembers.add(member);
+                    }
+                    //breaks after one loop, because it does not matter if something is inactive or not, they are all added in the same way?
                 }
+                if (has)membersWithModules.add(member);
+                else inactiveMembers.add(member);
             }
         }
         membersWithModules.addAll(inactiveMembers);
@@ -71,11 +84,18 @@ public class TooltipShipSection {
     }
 
     private static void addModulePanel(TooltipMakerAPI tooltip, FleetMemberAPI member) {
+        // in thoery, that just works? because I want to display a giving ship more then once under this circumstance?
+        ArrayList<ProductionModule> module = FleetwideModuleManager.getInstance().getModuleIndex().get(member);
+        for (ProductionModule a : module) addModulePanel_2(tooltip,member,a);
+    }
+    private static void addModulePanel_2(TooltipMakerAPI tooltip, FleetMemberAPI member,ProductionModule module){
         Color textColor = Misc.getTextColor();
         Color nameColor = Misc.getBasePlayerColor();
         String shipName = tooltip.shortenString(member.getShipName(), 175);
         String shipClass = member.getHullSpec().getHullNameWithDashClass();
-        ProductionModule module = FleetwideModuleManager.getInstance().getModuleIndex().get(member);
+
+
+
         boolean hasSecondCapacity = (module.getModuleCapacities().size() > 1);
         ProductionCapacity firstCapacityInstance = module.getModuleCapacities().get(0);
         ProductionCapacity secondCapacityInstance = null;
