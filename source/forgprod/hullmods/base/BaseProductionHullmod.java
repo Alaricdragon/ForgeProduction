@@ -36,8 +36,8 @@ public abstract class BaseProductionHullmod extends BaseHullMod {
     @Override
     public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
         int shipCapacity = SHIPSIZE_CAPACITY.get(hullSize);
-        int crewIncrease = SettingsHolder.CREW_REQ_PER_CAPACITY * shipCapacity;
-        int supplyIncrease = SettingsHolder.SUPPLY_REQ_PER_CAPACITY * shipCapacity;
+        int crewIncrease = (int) (SettingsHolder.CREW_REQ_PER_CAPACITY * shipCapacity);
+        float supplyIncrease = SettingsHolder.SUPPLY_REQ_PER_CAPACITY * shipCapacity;
         stats.getMaxCombatReadiness().modifyFlat(modID(), -SettingsHolder.MAXIMUM_CR_DECREASE);
         stats.getSuppliesPerMonth().modifyFlat(modID(), supplyIncrease);
         stats.getMinCrewMod().modifyFlat(modID(), crewIncrease);
@@ -45,12 +45,12 @@ public abstract class BaseProductionHullmod extends BaseHullMod {
     public abstract String modID();
 
     public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {
-        int crewPerCapacity = SettingsHolder.CREW_REQ_PER_CAPACITY;
-        int supplyPerCapacity = SettingsHolder.SUPPLY_REQ_PER_CAPACITY;
+        float crewPerCapacity = SettingsHolder.CREW_REQ_PER_CAPACITY;
+        float supplyPerCapacity = SettingsHolder.SUPPLY_REQ_PER_CAPACITY;
         int cruiserCapacity = SHIPSIZE_CAPACITY.get(ShipAPI.HullSize.CRUISER);
         int capitalCapacity = SHIPSIZE_CAPACITY.get(ShipAPI.HullSize.CAPITAL_SHIP);
         int combatReadinessDecrease = (int) (SettingsHolder.MAXIMUM_CR_DECREASE * 100f);
-        if (index == 0) return (crewPerCapacity * cruiserCapacity) + "/" + (crewPerCapacity * capitalCapacity);
+        if (index == 0) return ((int)(crewPerCapacity * cruiserCapacity)) + "/" + ((int)(crewPerCapacity * capitalCapacity));
         if (index == 1) return (supplyPerCapacity * cruiserCapacity) + "/" + (supplyPerCapacity * capitalCapacity);
         if (index == 2) return combatReadinessDecrease + "%";
         return null;

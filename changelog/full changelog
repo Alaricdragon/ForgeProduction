@@ -1,3 +1,8 @@
+V0.1.12:
+save compatible with V1.1.4+
+fixed:
+    fixed a crash when pressing f1 on the forge production skill.
+    fixed the crew increase and supply increase being 2x what it should have been.
 V0.1.11:
 save compatible with V1.1.4+
 fixed:

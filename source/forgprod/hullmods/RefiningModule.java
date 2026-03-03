@@ -32,6 +32,7 @@ public class RefiningModule extends BaseProductionHullmod {
 
     @Override
     public ProductionModule getSpecificModule(FleetMemberAPI member) {
+        if (member == null) return null;
         for (ProductionModule a : FleetwideModuleManager.getInstance().getSpecificModule(member)){
             if (a.getHullmodId().equals(ProductionConstants.REFINING_MODULE)) return a;
         }
