@@ -12,8 +12,8 @@ public class SettingsHolder {
 
         // Here: Installation Settings
 
-        public static int CREW_REQ_PER_CAPACITY = 15;
-        public static int SUPPLY_REQ_PER_CAPACITY = 1;
+        public static float CREW_REQ_PER_CAPACITY = 7.5f;
+        public static float SUPPLY_REQ_PER_CAPACITY = 0.5f;
         public static float MAXIMUM_CR_DECREASE = 0.2f;
 
         // Here: Miscellaneous Settings

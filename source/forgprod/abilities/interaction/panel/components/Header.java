@@ -172,8 +172,8 @@ public class Header {
         Color highlight = Misc.getHighlightColor();
         int totalVolume = FleetwideProductionChecks.getTotalModuleVolume();
         int crewmanSalary = Global.getSettings().getInt("crewSalary");
-        int salaryIncrease = totalVolume * SettingsHolder.CREW_REQ_PER_CAPACITY * crewmanSalary;
-        int supplyIncrease = totalVolume * SettingsHolder.SUPPLY_REQ_PER_CAPACITY;
+        int salaryIncrease = ((int)(totalVolume * SettingsHolder.CREW_REQ_PER_CAPACITY)) * crewmanSalary;
+        int supplyIncrease = (int) (totalVolume * SettingsHolder.SUPPLY_REQ_PER_CAPACITY);
         addSpecLineToSection(sectionContainer, "Active production CR decrease:",
                 Misc.getRoundedValueMaxOneAfterDecimal((SettingsHolder.DAILY_CR_DECREASE) * 100f) + "%",
                 highlight, true);

@@ -22,8 +22,8 @@ public class SettingsDataSupplier {
 
             // Here: Installation Settings.
 
-            SettingsHolder.CREW_REQ_PER_CAPACITY = settings.getInt("crew_requirement_per_capacity");
-            SettingsHolder.SUPPLY_REQ_PER_CAPACITY = settings.getInt("supply_increase_per_capacity");
+            SettingsHolder.CREW_REQ_PER_CAPACITY = (float) settings.getDouble("crew_requirement_per_capacity");
+            SettingsHolder.SUPPLY_REQ_PER_CAPACITY = (float) settings.getDouble("supply_increase_per_capacity");
 
             // Here: Miscellaneous Settings
             SettingsHolder.ENABLE_FEATURE_UNLOCK = settings.getBoolean("enable_feature_unlock_at_start");
