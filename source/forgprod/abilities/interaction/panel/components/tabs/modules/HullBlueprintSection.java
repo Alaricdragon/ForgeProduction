@@ -489,14 +489,20 @@ public class HullBlueprintSection {
         Set<String> allKnown = Global.getSector().getPlayerFaction().getKnownShips();
         Set<ShipVariantAPI> resultVariants = new HashSet<>();
         ListMap<String> allVariants = Global.getSettings().getHullIdToVariantListMap();
+        SettingsHolder.log.info("checking blueprints: ");
         for (String blueprintId : allKnown) {
             ShipHullSpecAPI spec = Global.getSettings().getHullSpec(blueprintId);
+            SettingsHolder.log.info("   blueprint of: "+spec.getHullId()+", "+spec.getHullSize()+", "+spec.getManufacturer());
             if (SettingsHolder.ENABLE_HULL_PRODUCTION_LIMITATIONS) {
+                SettingsHolder.log.info("   -start");
                 if (!isEligibleHullSize(spec)) continue;
+                SettingsHolder.log.info("   -allowedSize");
                 if (!isEligibleHullmods(spec)) continue;
-                if (!isEligibleTech(spec) && !isEligibleTags(spec)) {//one or the other must be true...
-                    continue;
-                }
+                SettingsHolder.log.info("   -allowedHullmods");
+                if (!isEligibleTech(spec)) continue;
+                SettingsHolder.log.info("   -allowedTech");
+                if (!isEligibleTags(spec)) continue;
+                SettingsHolder.log.info("   -allowedTags");
             }
             List<String> hullVariants = allVariants.getList(spec.getHullId());
             ShipVariantAPI targetVariant = null;
@@ -553,6 +559,19 @@ public class HullBlueprintSection {
         }
     }
     private static boolean isEligibleHullmods(ShipHullSpecAPI spec){
+        boolean can = true;
+        if (SettingsHolder.isWhitelisted && !SettingsHolder.hull_prod_allowedHullmods.isEmpty()){
+            can = false;
+            ArrayList<String> allowed = SettingsHolder.hull_prod_allowedHullmods;
+            for (String a : allowed){
+                if (spec.isBuiltInMod(a)){
+                    can = true;
+                    break;
+                }
+            }
+        }
+        if (!can) return false;
+        if (getUnsupportedHullmodsIds().isEmpty()) return true;
         List<String> unsupportedHullmods = getUnsupportedHullmodsIds();
         for (String hullmod : unsupportedHullmods) {
             if (spec.isBuiltInMod(hullmod)) {
@@ -563,15 +582,49 @@ public class HullBlueprintSection {
     }
 
     private static boolean isEligibleTech(ShipHullSpecAPI spec) {
-        for (String tech : SettingsHolder.hull_prod_allowedManufacturers) {
+        boolean can = true;
+        if (SettingsHolder.isWhitelisted && !SettingsHolder.hull_prod_allowedManufacturers.isEmpty()){
+            can = false;
+            ArrayList<String> allowed = SettingsHolder.hull_prod_allowedManufacturers;
+            for (String a : allowed){
+                if (spec.getManufacturer().equals(a)){
+                    can = true;
+                    break;
+                }
+            }
+        }
+        if (!can) return false;
+        if (SettingsHolder.hull_prod_bannedManufacturers.isEmpty()) return true;
+        for (String tech : SettingsHolder.hull_prod_bannedManufacturers) {
             if (spec.getManufacturer().equals(tech)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private static boolean isEligibleTags(ShipHullSpecAPI spec){
+        boolean can = true;
+        if (SettingsHolder.isWhitelisted && !SettingsHolder.hull_prod_allowedTags.isEmpty()){
+            can = false;
+            ArrayList<String> allowed = SettingsHolder.hull_prod_allowedTags;
+            for (String a : allowed){
+                if (spec.hasTag(a)){
+                    can = true;
+                    break;
+                }
+            }
+        }
+        if (!can) return false;
+        if (SettingsHolder.hull_prod_bannedTags.isEmpty()) return true;
+        for (String tech : SettingsHolder.hull_prod_bannedTags) {
+            if (spec.hasTag(tech)) {
                 return true;
             }
         }
         return false;
-    }
-    private static boolean isEligibleTags(ShipHullSpecAPI spec){
+
+        /*
         for (String tag : SettingsHolder.hull_prod_allowedTags) if (spec.hasTag(tag)) return true;
-        return false;
+        return false;*/
     }
 }

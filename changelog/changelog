@@ -1,3 +1,16 @@
+V0.1.13:
+save compatible with V1.1.4+
+fixed:
+    (hopefully) fixed a F2 crash issue.
+    (hopefully) fixed a F1 crash issue.
+settings:
+    added:
+        hull_production_banndedTags
+        hull_production_bannedManufacturers
+        hull_production_allowedHullmods
+    changed:
+        when allowedManufactures, allowedHullmods, and allowedTags are empty, forge production will no longer limit allowed hulls to a white list.
+        black lists still apply.
 V0.1.12:
 save compatible with V1.1.4+
 fixed:

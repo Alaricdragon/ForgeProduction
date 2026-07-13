@@ -10,6 +10,8 @@ import forgprod.abilities.modules.FleetwideModuleManager;
 import forgprod.abilities.modules.dataholders.ProductionModule;
 import forgprod.hullmods.base.BaseProductionHullmod;
 
+import java.util.ArrayList;
+
 /**
  * @author Ontheheavens
  * @since 06.12.2022
@@ -33,7 +35,9 @@ public class RefiningModule extends BaseProductionHullmod {
     @Override
     public ProductionModule getSpecificModule(FleetMemberAPI member) {
         if (member == null) return null;
-        for (ProductionModule a : FleetwideModuleManager.getInstance().getSpecificModule(member)){
+        ArrayList<ProductionModule> modules = FleetwideModuleManager.getInstance().getSpecificModule(member);
+        if(modules == null) return null;
+        for (ProductionModule a : modules){
             if (a.getHullmodId().equals(ProductionConstants.REFINING_MODULE)) return a;
         }
         return null;

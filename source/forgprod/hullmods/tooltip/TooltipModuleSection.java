@@ -154,6 +154,7 @@ public class TooltipModuleSection {
             case ProductionConstants.HEAVY_INDUSTRY_MODULE:
                 // this was changed to simply get the module of a given ship, but only return the one for heavy industry.
                 ArrayList<ProductionModule> temp = FleetwideModuleManager.getInstance().getModuleIndex().get(ship.getFleetMember());
+                if (temp == null) break;
                 ProductionModule module = null;
                 for (ProductionModule a : temp){
                     if (a.getHullmodId().equals(ProductionConstants.HEAVY_INDUSTRY_MODULE)){

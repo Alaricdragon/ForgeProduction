@@ -1,5 +1,8 @@
 package forgprod.settings;
 
+import com.fs.starfarer.api.Global;
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 
 /**
@@ -9,6 +12,7 @@ import java.util.ArrayList;
  */
 
 public class SettingsHolder {
+        public static Logger log = Global.getLogger(SettingsHolder.class);
 
         // Here: Installation Settings
 
@@ -100,8 +104,12 @@ public class SettingsHolder {
         public static float PRISTINE_NANOFORGE_BREAKDOWN_DECREASE = 0.5f;
 
         // Hull production allowances
+        public static boolean isWhitelisted = false;
         public static ArrayList<String> hull_prod_allowedTags = new ArrayList<>();
+        public static ArrayList<String> hull_prod_bannedTags = new ArrayList<>();
         public static ArrayList<String> hull_prod_allowedManufacturers = new ArrayList<>();
+        public static ArrayList<String> hull_prod_bannedManufacturers = new ArrayList<>();
+        public static ArrayList<String> hull_prod_allowedHullmods = new ArrayList<>();
         public static ArrayList<String> hull_prod_bannedHullmods = new ArrayList<>();
         public static ArrayList<String> hull_prod_forcedVariants = new ArrayList<>();
         public static boolean hull_prod_allowForcedVariants = true;
