@@ -11,6 +11,8 @@ import forgprod.abilities.modules.dataholders.ProductionCapacity;
 import forgprod.abilities.modules.dataholders.ProductionModule;
 import forgprod.hullmods.base.BaseProductionHullmod;
 
+import java.util.ArrayList;
+
 /**
  * @author Ontheheavens
  * @since 06.12.2022
@@ -34,7 +36,10 @@ public class FuelProductionModule extends BaseProductionHullmod {
 
     @Override
     public ProductionModule getSpecificModule(FleetMemberAPI member) {
-        for (ProductionModule a : FleetwideModuleManager.getInstance().getSpecificModule(member)){
+        if (member == null) return null;
+        ArrayList<ProductionModule> modules = FleetwideModuleManager.getInstance().getSpecificModule(member);
+        if(modules == null) return null;
+        for (ProductionModule a : modules){
             if (a.getHullmodId().equals(ProductionConstants.FUEL_PRODUCTION_MODULE)) return a;
         }
         return null;

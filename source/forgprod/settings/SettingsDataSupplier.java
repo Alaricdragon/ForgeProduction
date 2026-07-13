@@ -106,17 +106,31 @@ public class SettingsDataSupplier {
             SettingsHolder.hull_prod_allowedTags = new ArrayList<>();
             for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_allowedTags.add(temp.getString(a));
 
+            temp = settings.getJSONArray("hull_production_banndedTags");
+            SettingsHolder.hull_prod_bannedTags = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_bannedTags.add(temp.getString(a));
+
             temp = settings.getJSONArray("hull_production_allowedManufacturers");
             SettingsHolder.hull_prod_allowedManufacturers = new ArrayList<>();
             for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_allowedManufacturers.add(temp.getString(a));
+
+            temp = settings.getJSONArray("hull_production_bannedManufacturers");
+            SettingsHolder.hull_prod_bannedManufacturers = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_bannedManufacturers.add(temp.getString(a));
 
             temp = settings.getJSONArray("hull_production_forcedVariants");
             SettingsHolder.hull_prod_forcedVariants = new ArrayList<>();
             for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_forcedVariants.add(temp.getString(a));
 
+            temp = settings.getJSONArray("hull_production_allowedHullmods");
+            SettingsHolder.hull_prod_allowedHullmods = new ArrayList<>();
+            for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_allowedHullmods.add(temp.getString(a));
+
             temp = settings.getJSONArray("hull_production_bannedHullmods");
             SettingsHolder.hull_prod_bannedHullmods = new ArrayList<>();
             for (int a = 0; a < temp.length(); a++) SettingsHolder.hull_prod_bannedHullmods.add(temp.getString(a));
+
+            SettingsHolder.isWhitelisted = !SettingsHolder.hull_prod_allowedHullmods.isEmpty() || !SettingsHolder.hull_prod_allowedManufacturers.isEmpty() || !SettingsHolder.hull_prod_allowedTags.isEmpty();
 
             SettingsHolder.hull_prod_allowedFrigate = settings.getBoolean("hull_production_allowedFrigate");
             SettingsHolder.hull_prod_allowedDestroyer = settings.getBoolean("hull_production_allowedDestroyer");
